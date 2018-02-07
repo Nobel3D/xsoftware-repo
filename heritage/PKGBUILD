@@ -1,0 +1,43 @@
+# Maintainer: Luca Gasperini <info at xsoftware dot tk>
+
+pkgname=plasma5-themes-heritage
+_gitname=heritage
+pkgver=83.f72c02c
+pkgrel=1
+pkgdesc='Heritage by Chakra Plasma 5 theme files'
+url='http://www.chakralinux.org'
+arch=('x86_64' 'i686')
+license=('LGPL')
+depends=('plasma-framework')
+makedepends=('extra-cmake-modules')
+source=("git+https://code.chakralinux.org/tools/heritage.git")
+md5sums=('SKIP')
+
+pkgver() {
+  cd "$srcdir/$_gitname"
+  echo "$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
+}
+
+build() {
+  cd $_gitname
+  cmake \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON  
+}
+
+package() {
+  cd "$srcdir/$_gitname/colors"
+  make DESTDIR=${pkgdir} install
+  cd "$srcdir/$_gitname/look-and-feel"
+  make DESTDIR=${pkgdir} install
+  cd "$srcdir/$_gitname/plasma"
+  make DESTDIR=${pkgdir} install
+  cd "$srcdir/$_gitname/plymouth"
+  make DESTDIR=${pkgdir} install
+  cd "$srcdir/$_gitname/sddm"
+  make DESTDIR=${pkgdir} install
+  cd "$srcdir/$_gitname/yakuake"
+  make DESTDIR=${pkgdir} install
+
+}
