@@ -2,7 +2,7 @@
 
 pkgname=kwalletmanager-git
 _gitname=kwalletmanager
-pkgver=989.abd87f1
+pkgver=990.f008a1f
 pkgrel=1
 pkgdesc='Wallet management tool'
 arch=('i686' 'x86_64')
